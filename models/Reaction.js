@@ -2,13 +2,14 @@ const { Schema, Types } = require("mongoose");
 
 const reactionSchema = new Schema(
   {
-    // reactionId: {
-    //   type: Schema.Types.ObjectId,
-    //   default: () => new Types.ObjectId(),
-    // },
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
     reactionBody: {
       type: String,
       required: true,
+      minLength: 1,
       maxlength: 280,
     },
     username: {
@@ -18,6 +19,7 @@ const reactionSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
+      get: (createdAt) => createdAt.toLocaleDateString("en-US"),
     },
   },
   {
@@ -27,8 +29,5 @@ const reactionSchema = new Schema(
     id: false,
   }
 );
-
-// TODO add getter to format createdAt
-
 
 module.exports = reactionSchema;
